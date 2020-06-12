@@ -8,6 +8,7 @@ import androidx.core.text.TextUtilsCompat;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -45,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
                     final AlertDialog dialogue= new SpotsDialog.Builder().setContext(LoginActivity.this).setTheme(R.style.Custom).setCancelable(true).build();
                     dialogue.show();
 
+                    //sign in with email and password.....
                     mAuth.signInWithEmailAndPassword(loginEmail,loginPassword).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
@@ -56,8 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             dialogue.dismiss();
-                            Toast.makeText(LoginActivity.this, ""+e, Toast.LENGTH_SHORT).show();
-
+                            Toast.makeText(LoginActivity.this, "Error: "+e, Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -65,6 +66,13 @@ public class LoginActivity extends AppCompatActivity {
                 else {
                     Toast.makeText(LoginActivity.this, "Please Enter Email & Password", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        needAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(intent);
             }
         });
     }
